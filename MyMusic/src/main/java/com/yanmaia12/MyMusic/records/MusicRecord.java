@@ -8,6 +8,6 @@ import jakarta.persistence.Table;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record MusicRecord(
                           @JsonAlias("strTrack") String nomeMusica,
-                          @JsonAlias("srtArtist") String nomeArtista,
+                          @JsonAlias("strArtist") String nomeArtista,
                           @JsonAlias("strAlbum") String nomeAlbum) {
 }

@@ -7,4 +7,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public record ArtistRecord(
     @JsonAlias("strArtist") String nomeArtista,
     @JsonAlias("strGenre") String genero){
+
 }
