@@ -23,6 +23,8 @@ public class Principal {
                 2 - Apagar artista
                 3 - Adicionar música
                 4 - Apagar música
+                5 - Listar todas as músicas
+                6 - Listar todas as músicas de um artista
                 
                 0 - sair
                 """);
@@ -40,6 +42,12 @@ public class Principal {
                     break;
                 case 4:
                     musicaService.apagarMusica();
+                    break;
+                case 5:
+                    musicaService.listarTodasMusicas();
+                    break;
+                case 6:
+                    artistaService.listarMusicasArtista();
                     break;
                 case 0:
                     break;

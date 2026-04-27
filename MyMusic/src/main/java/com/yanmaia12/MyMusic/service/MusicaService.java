@@ -11,6 +11,7 @@ import com.yanmaia12.MyMusic.util.TratamentoErros;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,11 +40,12 @@ public class MusicaService {
             var json = apiService.buscarMusica(nomeArtista, nomeMusica);
             AudioDbMusic audioDbMusic = converteDados.obterDados(json, AudioDbMusic.class);
 
-            if (audioDbMusic != null && !audioDbMusic.track().isEmpty()){
+            if (audioDbMusic != null && audioDbMusic.track() != null && !audioDbMusic.track().isEmpty()){
                 MusicRecord musicRecord = audioDbMusic.track().get(0);
                 return new Musica(musicRecord.nomeMusica(), musicRecord.nomeArtista(), musicRecord.nomeAlbum(), artistaBanco.get());
             }
             else{
+                System.out.println("Música não encontrada ou nome está mal escrito, tente novamente!");
                 return null;
             }
         }else {
@@ -58,7 +60,10 @@ public class MusicaService {
             Optional<Musica> musicaAchada = musicaRepo.findByNomeMusica(musica.getNomeMusica());
             if (musicaAchada.isPresent()){
                 System.out.println("Música já adicionada anteriormente!");
+                return;
             }
+            Artista artistaDaMsc = musica.getArtista();
+            artistaDaMsc.adicionarMusica(musica);
             musicaRepo.save(musica);
             System.out.println("Música adicionada com sucesso!");
         }
@@ -71,5 +76,10 @@ public class MusicaService {
             musicaRepo.deleteById(musica.getId());
             System.out.println("Música apagada com sucesso!");
         }
+    }
+
+    public void listarTodasMusicas(){
+        List<Musica> listaMusica = musicaRepo.findAll();
+        listaMusica.forEach(m -> System.out.println("%s - %s".formatted(m.getNomeMusica(), m.getNomeArtista())));
     }
 }

@@ -72,6 +72,15 @@ public class ArtistaService {
 
     }
 
+    public void listarMusicasArtista(){
+        Artista artista = getDadosArtista();
+        if (!artista.getListaMusicas().isEmpty()){
+            artista.getListaMusicas().forEach(m -> System.out.println("%s - álbum: %s".formatted(m.getNomeMusica(), m.getNomeAlbum())));
+        }else {
+            System.out.println("Nenhuma música desse artista foi adicionada ainda!");
+        }
+    }
+
     public void adicionarTop10Musicas(String nome){
         Artista artista = getDadosArtista();
         if (artista != null){

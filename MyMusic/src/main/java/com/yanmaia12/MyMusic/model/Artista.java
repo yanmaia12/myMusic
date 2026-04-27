@@ -23,14 +23,17 @@ public class Artista {
     private String genero;
 
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Musica> listaMusicas;
+    private List<Musica> listaMusicas = new ArrayList<>();
 
     public Artista() {
+        this.listaMusicas = new ArrayList<>();
     }
+
 
     public Artista(String nomeArtista, String genero) {
         this.nomeArtista = nomeArtista;
         this.genero = genero;
+        this.listaMusicas = new ArrayList<>();
     }
 
     public void setListaMusicas(List<Musica> listaMusicas) {
@@ -41,7 +44,7 @@ public class Artista {
     }
 
     public void adicionarMusica(Musica musica){
-        if (this.listaMusicas.isEmpty()){
+        if (this.listaMusicas == null){
             this.listaMusicas = new ArrayList<>();
         }
         musica.setArtista(this);
