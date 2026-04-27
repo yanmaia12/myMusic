@@ -37,7 +37,6 @@ public class TheAudioDbService {
         }
 
         String json = response.body();
-        System.out.println(json);
         return json;
     }
 

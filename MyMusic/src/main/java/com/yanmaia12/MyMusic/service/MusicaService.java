@@ -8,6 +8,7 @@ import com.yanmaia12.MyMusic.repository.ArtistaRepo;
 import com.yanmaia12.MyMusic.repository.MusicaRepo;
 import com.yanmaia12.MyMusic.util.ConverteDados;
 import com.yanmaia12.MyMusic.util.TratamentoErros;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,7 @@ public class MusicaService {
         }
     }
 
+    @Transactional
     public void adicionarMusica(){
         Musica musica = getMusicaDados();
         if (musica != null){

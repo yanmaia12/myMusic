@@ -43,6 +43,7 @@ public class Artista {
         }
     }
 
+
     public void adicionarMusica(Musica musica){
         if (this.listaMusicas == null){
             this.listaMusicas = new ArrayList<>();

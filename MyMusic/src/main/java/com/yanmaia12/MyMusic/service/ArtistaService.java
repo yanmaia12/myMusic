@@ -8,6 +8,7 @@ import com.yanmaia12.MyMusic.records.AudioDbMusic;
 import com.yanmaia12.MyMusic.repository.ArtistaRepo;
 import com.yanmaia12.MyMusic.util.ConverteDados;
 import com.yanmaia12.MyMusic.util.TratamentoErros;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,12 +73,18 @@ public class ArtistaService {
 
     }
 
+    @Transactional
     public void listarMusicasArtista(){
-        Artista artista = getDadosArtista();
-        if (!artista.getListaMusicas().isEmpty()){
-            artista.getListaMusicas().forEach(m -> System.out.println("%s - álbum: %s".formatted(m.getNomeMusica(), m.getNomeAlbum())));
-        }else {
-            System.out.println("Nenhuma música desse artista foi adicionada ainda!");
+        String nomeArtista = TratamentoErros.tratamentoString("Insira o nome do artista: ");
+        Optional<Artista> artista = artistaRepo.findByNomeArtistaContainingIgnoreCase(nomeArtista);
+        if (artista.isPresent()){
+            if (!artista.get().getListaMusicas().isEmpty()){
+                artista.get().getListaMusicas().forEach(m -> System.out.println("%s - álbum: %s".formatted(m.getNomeMusica(), m.getNomeAlbum())));
+            }else {
+                System.out.println("Nenhuma música desse artista foi adicionada ainda!");
+            }
+        }else{
+            System.out.println("O artista ainda não foi adicionado no banco de dados!");
         }
     }
 
