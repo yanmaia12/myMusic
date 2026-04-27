@@ -8,9 +8,11 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# Ignora o jar do wrapper para forçar o download se necessário, 
-# mas geralmente é recomendado manter se você quer que outros rodem sem instalar o Maven
 # .mvn/wrapper/maven-wrapper.jar
+
+### Propriedades e Credenciais ###
+src/main/resources/application.properties
+*.properties
 
 ### IntelliJ IDEA ###
 .idea/
