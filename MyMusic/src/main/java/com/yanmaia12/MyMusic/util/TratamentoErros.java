@@ -62,8 +62,6 @@ public class TratamentoErros {
 
             if (entrada.isBlank()) {
                 System.out.println("erro: O campo não pode ficar vazio! Tente novamente.");
-            } else if (entrada.length() < 3) {
-                System.out.println("erro: O texto é muito curto (mínimo 3 caracteres).");
             } else {
                 certo = true;
             }

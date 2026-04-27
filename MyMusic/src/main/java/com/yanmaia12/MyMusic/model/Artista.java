@@ -2,9 +2,9 @@ package com.yanmaia12.MyMusic.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Lombok;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,5 +31,20 @@ public class Artista {
     public Artista(String nomeArtista, String genero) {
         this.nomeArtista = nomeArtista;
         this.genero = genero;
+    }
+
+    public void setListaMusicas(List<Musica> listaMusicas) {
+        this.listaMusicas = listaMusicas;
+        if (!listaMusicas.isEmpty()){
+            listaMusicas.forEach(m -> m.setArtista(this));
+        }
+    }
+
+    public void adicionarMusica(Musica musica){
+        if (this.listaMusicas.isEmpty()){
+            this.listaMusicas = new ArrayList<>();
+        }
+        musica.setArtista(this);
+        this.listaMusicas.add(musica);
     }
 }

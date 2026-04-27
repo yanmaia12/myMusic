@@ -13,16 +13,17 @@ public class Musica {
     @Id
     private Long id;
 
-    @Column(name = "nomeMusica", unique = true, nullable = false)
+    @Column(name = "nomeMusica", nullable = false)
     private String nomeMusica;
 
-    @Column(name = "nomeArtista", unique = true, nullable = false)
+    @Column(name = "nomeArtista", nullable = false)
     private String nomeArtista;
 
-    @Column(name = "nomeAlbum", unique = true, nullable = false)
+    @Column(name = "nomeAlbum", nullable = false)
     private String nomeAlbum;
 
     @ManyToOne()
+    @JoinColumn(name = "id_artista")
     private Artista artista;
 
 

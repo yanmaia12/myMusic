@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class TheAudioDbService {
@@ -15,10 +17,14 @@ public class TheAudioDbService {
     @Value("${audiodb.url}")
     private String url;
 
+    private String encode(String frase){
+        return frase.replace(" ", "+");
+    }
+
     public String buscarArtista(String nomeArtista){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url+"search.php?s="+nomeArtista.replace(" ", "_")))
+                .uri(URI.create(url+"search.php?s="+encode(nomeArtista)))
                 .build();
         HttpResponse<String> response = null;
         try {
@@ -31,13 +37,14 @@ public class TheAudioDbService {
         }
 
         String json = response.body();
+        System.out.println(json);
         return json;
     }
 
     public String buscarMusica(String nomeArtista, String nomeMusica){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url+"searchtrack.php?s="+nomeArtista.replace(" ", "_")+"&t="+nomeMusica.replace(" ", "_")))
+                .uri(URI.create(url+"searchtrack.php?s="+encode(nomeArtista)+"&t="+encode(nomeMusica)))
                 .build();
         HttpResponse<String> response = null;
         try {
@@ -56,7 +63,7 @@ public class TheAudioDbService {
     public String buscarTop10Musica(String nomeArtista){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url+"track-top10.php?s=" + nomeArtista.replace(" ", "_")))
+                .uri(URI.create(url+"track-top10.php?s=" + encode(nomeArtista)))
                 .build();
         HttpResponse<String> response = null;
         try {
